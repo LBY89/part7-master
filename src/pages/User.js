@@ -17,13 +17,18 @@ const User = () => {
 
   const userOf= useSelector(state => state.users)
   console.log('userOf from User', userOf)
-  if (!userOf) {
-    return null
+  if (userOf
+  && Object.keys(userOf).length === 0
+  && Object.getPrototypeOf(userOf) === Object.prototype) {
+    return (
+      <h2>a bug to be debugged...</h2>
+    )
   }
   return(
     <div>
-      <h2>somthing</h2>
-      {userOf.name}
+      <h2>{userOf.name}</h2>
+      <p>added blogs</p>
+      {userOf.blogs.map(blog => <li key={blog.id}>{blog.title}</li>)}
     </div>
   )
 }
