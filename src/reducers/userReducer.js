@@ -12,6 +12,7 @@ const userSlice = createSlice ({
       //console.log('after appendUser statepush')
     },
     logOut: (state, action) => {
+      console.log('logOut to clean user from userReducer')
       return action.payload
     },
     setUserArr: (state, action) => {

@@ -5,6 +5,7 @@ import blogReducer from './reducers/blogReducer'
 import userReducer from './reducers/userReducer'
 import singularUserReducer from './reducers/singularUserReducer'
 import userNameReducer from './reducers/userNameReducer'
+import commentReducer from './reducers/commentReducer'
 
 const store = configureStore({
 
@@ -13,7 +14,8 @@ const store = configureStore({
     blogs: blogReducer,
     user: userReducer,
     users: singularUserReducer,
-    userName: userNameReducer
+    userName: userNameReducer,
+    comment: commentReducer
 
   }
 })

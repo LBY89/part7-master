@@ -23,7 +23,7 @@ const Togglable = forwardRef((props, ref) => {
 
   })
 
-  //console.log('togglable almost render')
+  console.log('togglable almost render')
   //console.log('props.children', props.children)
 
   return (

@@ -14,10 +14,11 @@ import {
   Routes,
   Route,
   Link,
+  useMatch
 
 
 } from 'react-router-dom'
-//import { initializeUser } from './reducers/singularUserReducer'
+import Blog from './components/Blog'
 
 
 const App = () => {
@@ -63,6 +64,15 @@ const App = () => {
     window.localStorage.clear()
   }
 
+  const match = useMatch('/blogs/:id')
+  console.log('match to be rendered from HOME', match)
+  const blog = match
+    ? newBlogs.find(user => user.id === match.params.id)
+    : null
+  console.log('blog to be rendered from HOME', blog)
+
+  //useMatch is a godam hook, put before if statement, man
+
   if (!user) {
     return (
       <div>
@@ -78,10 +88,7 @@ const App = () => {
   const padding = {
     padding: 5
   }
-  // const match = useMatch('/users/:id')
-  // const userOf = match
-  //   ? users.find(user => user.id === match.params.id)
-  //   : null
+
 
   return (
     <div>
@@ -91,9 +98,10 @@ const App = () => {
       <Link style={padding} to="/users">users</Link>
       {userName} logged in <button id='logout-button' onClick = {handleLogout}>logout</button>
       <Routes>
-        <Route path="/users/:id" element={<User />} />
+        <Route path="/users/:id/" element={<User />} />
         <Route path="/users" element={<Users  />} />
-        <Route path="/" element={<Home newBlogs={newBlogs} userName={userName} />}/>
+        <Route path="/*" element={<Home newBlogs={newBlogs} />}/>
+        <Route path="/blogs/:id" element={<Blog blog={blog} userName={userName} />}/>
       </Routes>
     </div>
   )

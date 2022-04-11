@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { createBlog } from '../reducers/blogReducer'
 
 const BlogForm = () => {
-
+  console.log('BlogFrom')
   const dispatch = useDispatch()
 
   const [title, setTitle] = useState('')
@@ -44,7 +44,6 @@ const BlogForm = () => {
             value={title}
             name="title"
             onChange={handleTitleChange}
-            placeholder='write here blog title'
           />
         </div>
         <div>
@@ -55,7 +54,6 @@ const BlogForm = () => {
             value={author}
             name="author"
             onChange={handleAuthorChange}
-            placeholder='write here blog author'
           />
         </div>
         <div>
@@ -66,7 +64,6 @@ const BlogForm = () => {
             value={url}
             name="url"
             onChange={handleUrlChange}
-            placeholder='write here blog url'
           />
         </div>
         <button id='create-button' type="submit">create</button>
