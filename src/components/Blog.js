@@ -1,14 +1,22 @@
 // import { useState } from 'react'
 import { increaseLike, deleteBlog } from '../reducers/blogReducer'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setAddedNotification } from '../reducers/notificationReducer'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { createComment } from '../reducers/commentReducer'
+import { initializeComments } from '../reducers/commentReducer'
 
-const Blog = ({ blog, userName } ) => {
+const Blog = ({ blog, userName, comments } ) => {
+  useEffect(() => {
+    if (!blog) {
+      return null
+    }
+    dispatch(initializeComments(blog.id))
+  }, [])
   const dispatch = useDispatch()
   const [comment, setComment] = useState('')
-  const comments = useSelector(state => state.comment)
+  console.log('comments from fresh off store', comments)
+
   const handleCommentChange = () => {
     setComment(event.target.value)
   }
@@ -42,7 +50,7 @@ const Blog = ({ blog, userName } ) => {
         <input value={comment} onChange={handleCommentChange}/>
         <button type="submit">add comment</button>
       </form>
-      {comments.map((comment, index) => <li key={index}>{comment}</li>)}
+      {comments.map((comment, index) => <li key={index}>{comment.content}</li>)}
     </div>
   )
 

@@ -29,6 +29,7 @@ const App = () => {
   const newBlogs = useSelector(state => state.blogs)
   const user = useSelector(state => state.user)
   const userName = useSelector(state => state.userName)
+  const comments = useSelector(state => state.comment)
   // const users = useSelector(state => state.users)
   // console.log('usersfromstore', users)
 
@@ -101,7 +102,7 @@ const App = () => {
         <Route path="/users/:id/" element={<User />} />
         <Route path="/users" element={<Users  />} />
         <Route path="/*" element={<Home newBlogs={newBlogs} />}/>
-        <Route path="/blogs/:id" element={<Blog blog={blog} userName={userName} />}/>
+        <Route path="/blogs/:id" element={<Blog blog={blog} userName={userName} comments={comments}/>}/>
       </Routes>
     </div>
   )
