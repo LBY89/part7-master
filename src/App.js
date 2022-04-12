@@ -10,28 +10,20 @@ import Home from './pages/Home'
 import Users from './pages/Users'
 import User from './pages/User'
 import { appendUserName } from './reducers/userNameReducer'
+import Blog from './components/Blog'
+import { Button, Navbar, Nav } from 'react-bootstrap'
+import Main from './pages/Main'
+import { initializeComments } from './reducers/commentReducer'
 import {
   Routes,
   Route,
   Link,
   useMatch
-
-
 } from 'react-router-dom'
-import Blog from './components/Blog'
-
 
 const App = () => {
 
   const dispatch = useDispatch()
-
-
-  const newBlogs = useSelector(state => state.blogs)
-  const user = useSelector(state => state.user)
-  const userName = useSelector(state => state.userName)
-  const comments = useSelector(state => state.comment)
-  // const users = useSelector(state => state.users)
-  // console.log('usersfromstore', users)
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
@@ -48,7 +40,18 @@ const App = () => {
 
   useEffect(() => {
     dispatch(initializeBlogs())
+    dispatch(initializeComments())
   }, [dispatch])
+
+
+  const newBlogs = useSelector(state => state.blogs)
+  const user = useSelector(state => state.user)
+  const userName = useSelector(state => state.userName)
+  const comments = useSelector(state => state.comment)
+  //console.log('comments from fresh off store', comments)
+  // const users = useSelector(state => state.users)
+  // console.log('usersfromstore', users)
+
 
   // to solve refresh automatic loggin issue, add above logic
   // if localStorage has user info, then keep user non null, when localStorage has no user
@@ -66,13 +69,10 @@ const App = () => {
   }
 
   const match = useMatch('/blogs/:id')
-  console.log('match to be rendered from HOME', match)
+  console.log('all blogs',newBlogs)
   const blog = match
     ? newBlogs.find(user => user.id === match.params.id)
     : null
-  console.log('blog to be rendered from HOME', blog)
-
-  //useMatch is a godam hook, put before if statement, man
 
   if (!user) {
     return (
@@ -87,18 +87,37 @@ const App = () => {
   }
 
   const padding = {
-    padding: 5
+    padding: 5,
+    textDecoration: 'none'
   }
 
 
   return (
-    <div>
+    <div className="container">
       <Notification  />
-      <h2>blogs</h2>
-      <Link style={padding} to="/">blogs</Link>
-      <Link style={padding} to="/users">users</Link>
-      {userName} logged in <button id='logout-button' onClick = {handleLogout}>logout</button>
+      <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link href="#" as="span">
+              <Link style={padding} to="/Main">Main</Link>
+            </Nav.Link>
+            <Nav.Link href="#" as="span">
+              <Link style={padding} to="/">Blogs</Link>
+            </Nav.Link>
+            <Nav.Link href="#" as="span">
+              <Link style={padding} to="/users">Users</Link>
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+        <Nav>Hello {userName}! <Button id='logout-button' onClick = {handleLogout}>logout</Button></Nav>
+      </Navbar>
+      {/* <Link style={padding} to="/Main">Main</Link>
+      <Link style={padding} to="/">Blogs</Link>
+      <Link style={padding} to="/users">Users</Link> */}
+      {/* {userName} logged in <Button id='logout-button' onClick = {handleLogout}>logout</Button> */}
       <Routes>
+        <Route path="/main" element={<Main />} />
         <Route path="/users/:id/" element={<User />} />
         <Route path="/users" element={<Users  />} />
         <Route path="/*" element={<Home newBlogs={newBlogs} />}/>

@@ -23,11 +23,11 @@ export const createComment = (id, comment) => {
   }
 }
 
-export const initializeComments = (id) => {
+export const initializeComments = () => {
   return async dispatch => {
-    const comments = await commentService.getAll(id)
-    const filteredComments = comments.filter((comment) => comment.blogId === id)
-    dispatch(setComments(filteredComments))
+    const comments = await commentService.getAll()
+    //const filteredComments = comments.filter((comment) => comment.blogId === id)
+    dispatch(setComments(comments))
   }
 }
 

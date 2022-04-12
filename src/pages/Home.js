@@ -2,7 +2,7 @@ import Togglable from '../components/Togglable'
 import BlogForm from '../components/BlogForm'
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-
+import { Table } from 'react-bootstrap'
 const Home = ({ newBlogs }) => {
 
   const blogFormRef = useRef()
@@ -12,8 +12,22 @@ const Home = ({ newBlogs }) => {
       <Togglable buttonLabel='create blog' ref={blogFormRef}>
         <BlogForm />
       </Togglable>
-      {newBlogs.map(blog => <div key={blog.id}><Link to={`blogs/${blog.id}`}>{blog.title} --- {blog.author}</Link></div>)}
+      <Table striped>
+        <tbody>
+          {newBlogs.map(blog =>
+            <tr key={blog.id}>
+              <td>
+                <Link style={{ textDecoration: 'none' }} to={`blogs/${blog.id}`}>{blog.title}</Link>
+              </td>
+              <td>
+                {blog.author}
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </Table>
     </div>
+
   )
 }
 

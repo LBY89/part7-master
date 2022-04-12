@@ -21,7 +21,7 @@ const User = () => {
   && Object.keys(userOf).length === 0
   && Object.getPrototypeOf(userOf) === Object.prototype) {
     return (
-      <h2>a bug to be debugged...</h2>
+      <h2>you probably never gonna see this, becuase I redirect this page to main page</h2>
     )
   }
   return(

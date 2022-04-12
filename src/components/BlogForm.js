@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { setAddedNotification } from '../reducers/notificationReducer'
 import { useDispatch } from 'react-redux'
 import { createBlog } from '../reducers/blogReducer'
+import { Form, Button } from 'react-bootstrap'
 
 const BlogForm = () => {
   console.log('BlogFrom')
@@ -35,7 +36,7 @@ const BlogForm = () => {
 
   return (
     <div>
-      <form onSubmit={addBlog}>
+      {/* <form onSubmit={addBlog}>
         <div>
               title
           <input
@@ -67,7 +68,38 @@ const BlogForm = () => {
           />
         </div>
         <button id='create-button' type="submit">create</button>
-      </form>
+      </form> */}
+      <Form onSubmit={addBlog}>
+        <Form.Group>
+          <Form.Label>title:</Form.Label>
+          <Form.Control
+            id='title'
+            type="text"
+            value={title}
+            name="title"
+            onChange={handleTitleChange}
+          />
+          <Form.Label>author:</Form.Label>
+          <Form.Control
+            id='author'
+            type="text"
+            value={author}
+            name="author"
+            onChange={handleAuthorChange}
+          />
+          <Form.Label>url:</Form.Label>
+          <Form.Control
+            id='url'
+            type="text"
+            value={url}
+            name="url"
+            onChange={handleUrlChange}
+          />
+          <Button variant="primary" type="submit">
+            create
+          </Button>
+        </Form.Group>
+      </Form>
     </div>
   )
 }

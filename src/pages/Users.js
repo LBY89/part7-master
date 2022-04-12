@@ -26,7 +26,7 @@ const Users = () => {
       Blogs created
       <table>
         <tbody>
-          {users.map(user => <tr key={user.id}><td><Link to={`/users/${user.id}`} onClick={() => dispatch(setUser(user))}>{user.name}</Link></td><td>{user.blogs.length}</td></tr>)}
+          {users.map(user => <tr key={user.id}><td><Link style={{ textDecoration: 'none' }} to={`/users/${user.id}`} onClick={() => dispatch(setUser(user))}>{user.name}</Link></td><td>{user.blogs.length}</td></tr>)}
         </tbody>
       </table>
     </div>
